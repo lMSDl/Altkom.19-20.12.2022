@@ -1,4 +1,7 @@
-﻿//namespace ConsoleApp
+﻿//global using - używanie wskazanej przestrzeni nazw na przestrzeni całego projektu
+global using System;
+
+//namespace ConsoleApp
 //{
 //    internal class Program
 //    {
