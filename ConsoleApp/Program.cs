@@ -1,5 +1,6 @@
 ﻿//global using - używanie wskazanej przestrzeni nazw na przestrzeni całego projektu
 global using System;
+using ConsoleApp.Models;
 
 //namespace ConsoleApp
 //{
@@ -8,7 +9,7 @@ global using System;
 //        static void Main(string[] args)
 //        {
 
-            Console.WriteLine("Hello, World!");
+Console.WriteLine("Hello, World!");
             DoSth();
             
             void DoSth()
@@ -33,6 +34,16 @@ static object? SetValue()
     return null;
 }
 
+
+Person person = new Person();
+person.FirstName = "Ewa";
+person.LastName = "ewowska";
+
+Console.WriteLine("Utworzono: " + person.CreatedAt);
+
+Console.WriteLine(person.Name);
+person.LastName = "Monikowska";
+Console.WriteLine(person.Name);
 
 
 //        }
