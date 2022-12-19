@@ -15,14 +15,16 @@ namespace Services.InMemory
 
         public int Create(Person entity)
         {
-            int id = 0;
+            /*int id = 0;
             foreach (var person in _people)
             {
                 if (person.Id > id)
                     id = person.Id;
-            }
-            id += 1;
+            }*/
 
+            //var id = _people.Select(x => x.Id).Max();
+            var id = _people.Max(x => x.Id);
+            id += 1;
             entity.Id = id;
             _people.Add(entity);
 
@@ -41,17 +43,20 @@ namespace Services.InMemory
 
         public Person? Read(int id)
         {
-            foreach (var entity in _people)
+            /*foreach (var entity in _people)
             {
                 if(entity.Id == id)
                     return entity;
             }
-            return null;
+            return null;*/
+
+            return _people.Where(x => x.Id == id).SingleOrDefault();
         }
 
         public IEnumerable<Person> Read()
         {
-            return new List<Person>(_people);
+            //return new List<Person>(_people);
+            return _people.ToList();
         }
 
         public void Update(int id, Person entity)
