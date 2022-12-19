@@ -28,6 +28,7 @@ namespace ConsoleApp.Delegates
         {
             MuticastDelegate @delegate = null;
 
+            //+= - podpinamy kolejne funkcje
             @delegate += Message1;
             @delegate += Message2;
             @delegate += Message3;
@@ -39,6 +40,7 @@ namespace ConsoleApp.Delegates
 
             @delegate("Hi!");
 
+            //= - zastępuje wszystkie funkcje, tą jędną wskazaną
             @delegate = Console.WriteLine;
             @delegate("console");
         }

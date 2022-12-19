@@ -1,6 +1,7 @@
 ﻿//global using - używanie wskazanej przestrzeni nazw na przestrzeni całego projektu
 global using System;
 using ConsoleApp.Delegates;
+using ConsoleApp.Events;
 using ConsoleApp.Models;
 
 //namespace ConsoleApp
@@ -59,6 +60,18 @@ Console.WriteLine("-----------");
 new DelegatesExample().Test();
 Console.WriteLine("-----------");
 new MulticastDelegateExample().Test();
+Console.WriteLine("-----------");
+EventsExample eventsExample = new EventsExample();
+eventsExample.OddNumberDelegate += Odd;
+eventsExample.OddNumberEvent += Odd;
+
+eventsExample.Test();
+
+void Odd()
+{
+    Console.WriteLine("!!!");
+}
+
 
 //        }
 //   }
