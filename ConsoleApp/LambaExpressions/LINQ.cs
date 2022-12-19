@@ -39,8 +39,8 @@ namespace ConsoleApp.LambaExpressions
             var result3 = query3.ToList(); //kończy zapytanie i zwraca kolekcję
 
             var result4 = People.Where(x => x.FirstName == "Adam")//.Single(); //kończy zapytanie i zwraca JEDEN rezultat 
-                                                                   // .SingleOrDefault(); //orDefault = jeśli nie znaleziono to zwraca wartość domyślną
-                                                                   //.First(); // -||- i zwraca pierwszy znaleziony
+                                                                  // .SingleOrDefault(); //orDefault = jeśli nie znaleziono to zwraca wartość domyślną
+                                                                  //.First(); // -||- i zwraca pierwszy znaleziony
                                                                    .FirstOrDefault();
             //.Last(); // -||- ostatni znaleziony
             //.LastOrDefault();
@@ -53,10 +53,19 @@ namespace ConsoleApp.LambaExpressions
 
 
             //1. posortować kolekcję strings po ilości liter w wyrazach
+            var result8 = strings.OrderBy(x => x.Length).ThenByDescending(x => x).ToList();
             //2. Zsumować wartości kolekcji numbers
+            var result9 = numbers.Sum();
             //3. Z People wybrać osoby, które mają na imię Piotr lub Ewa
+            var result10 = People.Where(person => person.FirstName == "Piotr" || person.FirstName == "Ewa").ToList();
             //4. z People wybrać osoby w wieku 50+ i wybrać ich nazwisko małymi literami
+            var result11 = People.Where(x => x.Age > 50)
+                                 .Select(x => x.LastName.ToLower())
+                                 /*.Select(x => x.LastName)
+                                 .Select(x => x.ToLower())*/
+                                 .ToList();
             //5. wybrać pojedynczą osobę z imieniem dłuższym niż 3 znaki
+            var result12 = People.Where(x => x.FirstName.Length > 3).Last();
         }
 
 
