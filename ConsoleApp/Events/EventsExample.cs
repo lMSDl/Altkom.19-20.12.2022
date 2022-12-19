@@ -11,6 +11,7 @@ namespace ConsoleApp.Events
         
 
         public delegate void OddNumber();
+        //dodaje warstwę ochorony przed wyczyszczeniem podpiętych funkcji
         public event OddNumber OddNumberEvent;
 
         public OddNumber OddNumberDelegate { get; set; }

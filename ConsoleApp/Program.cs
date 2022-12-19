@@ -66,6 +66,8 @@ eventsExample.OddNumberDelegate += Odd;
 eventsExample.OddNumberEvent += Odd;
 
 eventsExample.Test();
+Console.WriteLine("-----------");
+new BuildInDelegates().Test();
 
 void Odd()
 {
