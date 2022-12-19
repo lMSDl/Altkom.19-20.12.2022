@@ -50,6 +50,9 @@ Console.WriteLine(person.Age);
 person.Age += 10;
 Console.WriteLine(person.Age);
 
+Pizza pizza1 = new Pizza() { Cheese = true, Sauce = true, Ham = true };
+Pizza pizza2 = new Pizza(true, true, true) { Ham = true };
+
 
 //        }
 //   }
