@@ -2,6 +2,7 @@
 global using System;
 using ConsoleApp.Delegates;
 using ConsoleApp.Events;
+using ConsoleApp.LambaExpressions;
 using ConsoleApp.Models;
 
 //namespace ConsoleApp
@@ -68,6 +69,11 @@ eventsExample.OddNumberEvent += Odd;
 eventsExample.Test();
 Console.WriteLine("-----------");
 new BuildInDelegates().Test();
+
+Console.WriteLine("-----------");
+
+new LINQ().Test();
+
 
 void Odd()
 {
