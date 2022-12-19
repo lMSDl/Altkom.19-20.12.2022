@@ -50,6 +50,13 @@ namespace ConsoleApp.LambaExpressions
             var result6 = People.Skip(1).Take(4).ToList();
 
             var result7 = strings.Where(x => x.Length > 3).Where(x => x.Contains("a")).OrderBy(x => x).ToList();
+
+
+            //1. posortować kolekcję strings po ilości liter w wyrazach
+            //2. Zsumować wartości kolekcji numbers
+            //3. Z People wybrać osoby, które mają na imię Piotr lub Ewa
+            //4. z People wybrać osoby w wieku 50+ i wybrać ich nazwisko małymi literami
+            //5. wybrać pojedynczą osobę z imieniem dłuższym niż 3 znaki
         }
 
 
