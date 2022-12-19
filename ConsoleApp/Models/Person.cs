@@ -60,5 +60,8 @@ return _firstName;
         }
          
         public int Age { get; set; }
+
+        //brak kodyfikatora dotępu w kllasie = private
+        int SomeInt { get; set; }
     }
 }
