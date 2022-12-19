@@ -1,5 +1,6 @@
 ﻿//global using - używanie wskazanej przestrzeni nazw na przestrzeni całego projektu
 global using System;
+using ConsoleApp.Delegates;
 using ConsoleApp.Models;
 
 //namespace ConsoleApp
@@ -53,6 +54,11 @@ Console.WriteLine(person.Age);
 Pizza pizza1 = new Pizza() { Cheese = true, Sauce = true, Ham = true };
 Pizza pizza2 = new Pizza(true, true, true) { Ham = true };
 
+Console.WriteLine("-----------");
+
+new DelegatesExample().Test();
+Console.WriteLine("-----------");
+new MulticastDelegateExample().Test();
 
 //        }
 //   }
