@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.InMemory", "Services.InMemory\Services.InMemory.csproj", "{FE250266-ADCC-4752-8D00-6DDE925C30FA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeopleApp", "PeopleApp\PeopleApp.csproj", "{08365AC0-D7B4-49A4-BA18-497DCD199FA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{FE250266-ADCC-4752-8D00-6DDE925C30FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE250266-ADCC-4752-8D00-6DDE925C30FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE250266-ADCC-4752-8D00-6DDE925C30FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08365AC0-D7B4-49A4-BA18-497DCD199FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08365AC0-D7B4-49A4-BA18-497DCD199FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08365AC0-D7B4-49A4-BA18-497DCD199FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08365AC0-D7B4-49A4-BA18-497DCD199FA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
