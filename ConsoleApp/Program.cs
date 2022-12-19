@@ -45,6 +45,11 @@ Console.WriteLine(person.Name);
 person.LastName = "Monikowska";
 Console.WriteLine(person.Name);
 
+person.Age = 20;
+Console.WriteLine(person.Age);
+person.Age += 10;
+Console.WriteLine(person.Age);
+
 
 //        }
 //   }
