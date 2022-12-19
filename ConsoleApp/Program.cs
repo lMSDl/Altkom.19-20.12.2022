@@ -16,6 +16,25 @@ global using System;
                 Console.WriteLine("I am working..");
             }
 
+
+int? a = 4;
+a = null;
+
+object? b = new object();
+
+b = SetValue();
+
+if (b != null)
+    Console.WriteLine(b.ToString());
+
+
+static object? SetValue()
+{
+    return null;
+}
+
+
+
 //        }
 //   }
 //}
