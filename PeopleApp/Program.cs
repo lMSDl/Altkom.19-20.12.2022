@@ -12,22 +12,23 @@ using System.Xml.Serialization;
 
 //Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("de-de");
 
-var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-path = Path.Combine(path, "people.json");
-var service = new Services.InFile.EntityService<Person>(path);
+//var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+//path = Path.Combine(path, "people.json");
+//var service = new Services.InFile.EntityService<Person>(path);
+var service = new EntityAsyncService<Person>();
 
-/*service.Create(new Person() { Name = "Adam Adamski", Age = 34 });
-service.Create(new Person() { Name = "Ewa Ewowska", Age = 34 });
-service.Create(new Person() { Name = "Wiesława Wiesławowska", Age = 34 });
-service.Create(new Person() { Name = "Ewa Adamska", Age = 34 });
-service.Create(new Person() { Name = "Adam Ewowski", Age = 34 });*/
+await service.CreateAsync(new Person() { Name = "Adam Adamski", Age = 34 });
+await service.CreateAsync(new Person() { Name = "Ewa Ewowska", Age = 34 });
+await service.CreateAsync(new Person() { Name = "Wiesława Wiesławowska", Age = 34 });
+await service.CreateAsync(new Person() { Name = "Ewa Adamska", Age = 34 });
+await service.CreateAsync(new Person() { Name = "Adam Ewowski", Age = 34 });
 
 bool exit = false;
 
 do
 {
     Console.Clear();
-    ShowItems();
+    await ShowItems();
     ShowMenu();
 
     var input = Console.ReadKey().KeyChar;
@@ -41,31 +42,31 @@ do
             break;
         case 'b':
         case '2':
-            Delete();
+            await Delete();
             break;
         case 'c':
         case '3':
-            Edit();
+            await Edit();
             break;
         case 'd':
         case '4':
             exit = true;
             break;
         case '5':
-            ToJson();
+            await ToJson();
             break;
         case '6':
-            ToXml();
+            await ToXml();
             break;
     }
 
 
 } while (!exit);
 
-void ToXml()
+async Task ToXml()
 {
     int id = AskForId();
-    var item = service.Read(id);
+    var item = await  service.ReadAsync(id);
     /*var serializer = new XmlSerializer(item.GetType());
     string xml = xDocument.ToString();
     Console.ReadLine();
@@ -88,10 +89,10 @@ void ToXml()
     Console.ReadLine();
 }
 
-void ToJson()
+async Task ToJson()
 {
     int id = AskForId();
-    var item = service.Read(id);
+    var item = await service.ReadAsync(id);
 
     /*JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions();
     jsonSerializerOptions.IgnoreReadOnlyProperties = true;
@@ -114,29 +115,29 @@ void ToJson()
 
 }
 
-void Edit()
+async Task Edit()
 {
     int id = AskForId();
-    var item = service.Read(id);
+    var item = await service.ReadAsync(id);
     if (item == null)
         return;
     EditPerson(item);
 
-    service.Update(id, item);
+    await service.UpdateAsync(id, item);
 }
 
-void Delete()
+async Task Delete()
 {
     int id = AskForId();
-    service.Delete(id);
+    await service.DeleteAsync(id);
 }
 
-void Add()
+async void Add()
 {
     var person = new Person();
     EditPerson(person);
 
-    service.Create(person);
+    await service.CreateAsync(person);
 }
 
 int AskForId()
@@ -169,9 +170,9 @@ int AskForId()
     }*/
 }
 
-void ShowItems()
+async Task ShowItems()
 {
-    foreach (var item in service.Read())
+    foreach (var item in await service.ReadAsync())
     {
         Console.WriteLine(item);
     }
