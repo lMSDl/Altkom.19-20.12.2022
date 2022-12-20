@@ -1,34 +1,133 @@
-﻿using Models;
+﻿using Microsoft.VisualBasic.FileIO;
+using Models;
 using Services.InMemory;
+using System.ComponentModel;
 
-var person = new Person { Id = 1, Name = "Michał Michałowski", Age = 21 };
+var service = new PeopleService();
 
-Console.WriteLine(person);
+service.Create(new Person() { Name = "Adam Adamski", Age = 34 });
+service.Create(new Person() { Name = "Ewa Ewowska", Age = 34 });
+service.Create(new Person() { Name = "Wiesława Wiesławowska", Age = 34 });
+service.Create(new Person() { Name = "Ewa Adamska", Age = 34 });
+service.Create(new Person() { Name = "Adam Ewowski", Age = 34 });
+
+bool exit = false;
+
+do
+{
+    Console.Clear();
+    ShowItems();
+    ShowMenu();
+
+    var input = Console.ReadKey().KeyChar;
+    Console.WriteLine();
+
+    switch(input)
+    {
+        case 'a':
+        case '1':
+            Add();
+            break;
+        case 'b':
+        case '2':
+            Delete();
+            break;
+        case 'c':
+        case '3':
+            Edit();
+            break;
+        case 'd':
+        case '4':
+            exit = true;
+            break;
+    }
 
 
-var companiesService = new EntityService<Company>();
+} while (!exit);
 
-companiesService.Create(new Company() { Name = "Altkom" });
-companiesService.Create(new Company() { Name = "Microsoft" });
+void Edit()
+{
+    int id = AskForId();
+    var item = service.Read(id);
+    if (item == null)
+        return;
+    EditPerson(item);
 
-var companies = companiesService.Read();
+    service.Update(id, item);
+}
+
+void Delete()
+{
+    int id = AskForId();
+    service.Delete(id);
+}
+
+void Add()
+{
+    var person = new Person();
+    EditPerson(person);
+
+    service.Create(person);
+}
+
+int AskForId()
+{
+    Console.WriteLine("Podaj id:");
+    var input = Console.ReadLine();
+
+    int id;
+    //metody try zazwyczaj zwracają informację o powodzeniu akcji i przyjmują parametr wyjściowy (out) do zwrócenia rzeczywistego rezultatu
+    if(!int.TryParse(input, out id))
+    {
+        return AskForId();
+    }
+    return id;
+
+    /*try
+    {
+        var id = int.Parse(input);
+        return id;
+    }
+    catch (FormatException ex)
+    {
+        Console.WriteLine(ex.Message);
+        return AskForId();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+        return 0;
+    }*/
+}
+
+void ShowItems()
+{
+    foreach (var item in service.Read())
+    {
+        Console.WriteLine(item);
+    }
+    Console.WriteLine();
+}
+
+static void ShowMenu()
+{
+    Console.WriteLine("1. Dodaj");
+    Console.WriteLine("2. Usuń");
+    Console.WriteLine("3. Edytuj");
+    Console.WriteLine("4. Koniec");
+}
+
+static void EditPerson(Person item)
+{
+    Console.WriteLine("Podaj imię i nazwisko:");
+    item.Name = Console.ReadLine();
 
 
-var peopleService = new PeopleService();
+    int age;
+    do
+    {
+        Console.WriteLine("Podaj wiek:");
+    } while (!int.TryParse(Console.ReadLine(), out age));
 
-peopleService.Create(new Person() { Name = "Adam Adamski", Age = 34 });
-peopleService.Create(new Person() { Name = "Ewa Ewowska", Age = 34 });
-peopleService.Create(new Person() { Name = "Ewa Adamska", Age = 34 });
-peopleService.Create(new Person() { Name = "Adam Ewowski", Age = 34 });
-
-var people = peopleService.FindByName("Adam");
-
-peopleService.Delete(3);
-people = peopleService.FindByName("Adam");
-
-
-
-
-
-Console.ReadLine();
-
+    item.Age = age;
+}

@@ -16,7 +16,11 @@
             //return string.Format(format, Name, Age, Id);
 
             //string interpolowany
-            return $"{Id}.\t{Name}\t{Age}";
+            //return $"{Id}.\t{Name}\t{Age}";
+
+
+            //return string.Format("{2,-3}{0,-25}{1,-3}", Name, Age, Id);
+            return $"{Id,-3}{Name,-25}{Age,-3}";
         }
     }
 }
