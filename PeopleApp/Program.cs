@@ -65,11 +65,28 @@ void ToXml()
     int id = AskForId();
     var item = service.Read(id);
     var serializer = new XmlSerializer(item.GetType());
-    using var memoryStream = new MemoryStream();
-    serializer.Serialize(memoryStream, item);
-    var xml = Encoding.Default.GetString(memoryStream.ToArray());
+    string xml;
+    using (var memoryStream = new MemoryStream())
+    {
+        serializer.Serialize(memoryStream, item);
+        xml = Encoding.Default.GetString(memoryStream.ToArray());
+    }
     Console.WriteLine(xml);
     Console.ReadLine();
+
+    item = null;
+
+    var xDocument = XDocument.Parse(xml);
+
+    serializer = new XmlSerializer(typeof(Person));
+    using (var memoryStream = new MemoryStream())
+    {
+        xDocument.Save(memoryStream);
+        memoryStream.Position = 0;
+         item = (Person?)serializer.Deserialize(memoryStream);
+    }
+
+
 }
 
 void ToJson()
@@ -85,6 +102,9 @@ void ToJson()
 
     Console.WriteLine(json);
     Console.ReadLine();
+    item = null;
+
+    item = JsonSerializer.Deserialize<Person>(json);
 }
 
 void Edit()
