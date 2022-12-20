@@ -13,7 +13,6 @@ companiesService.Create(new Company() { Name = "Microsoft" });
 
 var companies = companiesService.Read();
 
-Console.ReadLine();
 
 var peopleService = new PeopleService();
 
@@ -23,6 +22,12 @@ peopleService.Create(new Person() { Name = "Ewa Adamska", Age = 34 });
 peopleService.Create(new Person() { Name = "Adam Ewowski", Age = 34 });
 
 var people = peopleService.FindByName("Adam");
+
+peopleService.Delete(3);
+people = peopleService.FindByName("Adam");
+
+
+
 
 
 Console.ReadLine();

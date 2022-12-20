@@ -8,7 +8,7 @@ namespace Services.InMemory
     {
         public IEnumerable<Person> FindByName(string input)
         {
-            return _entities.Where(x => x.Name.Contains(input)).ToList();
+            return _entities.Where(x => !x.IsDeleted).Where(x => x.Name.Contains(input)).ToList();
         }
     }
 }
