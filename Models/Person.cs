@@ -6,6 +6,8 @@
         public string Name { get; set; } = string.Empty;
         public int Age { get; set; }
 
+        public string Info => ToString();
+
 
         //override - nadpisanie metody bazowej
         public override string ToString()

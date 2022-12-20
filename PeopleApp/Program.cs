@@ -3,6 +3,7 @@ using Models;
 using PeopleApp.Properties;
 using Services.InMemory;
 using System.Globalization;
+using System.Text.Json;
 
 //Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("de-de");
 
@@ -44,10 +45,36 @@ do
         case '4':
             exit = true;
             break;
+        case '5':
+            ToJson();
+            break;
+        case '6':
+            ToXml();
+            break;
     }
 
 
 } while (!exit);
+
+void ToXml()
+{
+    int id = AskForId();
+}
+
+void ToJson()
+{
+    int id = AskForId();
+    var item = service.Read(id);
+
+    JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions();
+    jsonSerializerOptions.IgnoreReadOnlyProperties = true;
+    jsonSerializerOptions.WriteIndented = true;
+
+    string json = JsonSerializer.Serialize(item, jsonSerializerOptions);
+
+    Console.WriteLine(json);
+    Console.ReadLine();
+}
 
 void Edit()
 {
@@ -119,6 +146,8 @@ static void ShowMenu()
     Console.WriteLine(Resources.menu_delete);
     Console.WriteLine(Resources.menu_edit);
     Console.WriteLine(Resources.menu_close);
+    Console.WriteLine("5. JSON");
+    Console.WriteLine("6. XML");
 }
 
 static void EditPerson(Person item)
