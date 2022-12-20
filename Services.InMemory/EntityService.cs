@@ -12,14 +12,14 @@ namespace Services.InMemory
     //: - implementacja interfejsu
     public class EntityService<T> : IEntityService<T> where T : Entity //gdzie T dziedziczy po Entity
     {
-        protected readonly ICollection<T> _entities;
+        protected ICollection<T> _entities { get; set; }
 
         public EntityService()
         {
             _entities = new List<T>();
         }
 
-        public int Create(T entity)
+        public virtual int Create(T entity)
         {
             int id = 0;
             /*foreach (var item in _entities)
@@ -38,9 +38,9 @@ namespace Services.InMemory
             return id;
         }
 
-        public bool Delete(int id)
+        public virtual bool Delete(int id)
         {
-            var entity = _entities.SingleOrDefault(x => x.Id == id);
+            var entity = _entities.Where(x => !x.IsDeleted).SingleOrDefault(x => x.Id == id);
             //if (entity != null && !entity.IsDeleted)
             if(!entity?.IsDeleted ?? false)
             {
@@ -76,7 +76,7 @@ namespace Services.InMemory
                             .ToList();
         }
 
-        public void Update(int id, T entity)
+        public virtual void Update(int id, T entity)
         {
             if (Delete(id))
             {

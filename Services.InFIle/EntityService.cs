@@ -1,33 +1,72 @@
 ﻿using Models;
+using Newtonsoft.Json;
 using Services.Interfaces;
+using System.Text;
+using System.Text.Json.Serialization;
 
-namespace Services.InFIle
+namespace Services.InFile
 {
-    public class EntityService<T> : IEntityService<T> where T : Entity
+    public class EntityService<T> : InMemory.EntityService<T> where T : Entity
     {
-        public int Create(T entity)
+        private string _path;
+
+        public EntityService(string path)
         {
-            throw new NotImplementedException();
+            _path = path;
+
+            _entities = LoadData();
         }
 
-        public bool Delete(int id)
+
+        private ICollection<T> LoadData()
         {
-            throw new NotImplementedException();
+            //wykorzustanie using spowoduje automatyczne wywołanie funkcji Dispose
+            using var fileStream = new FileStream(_path, FileMode.OpenOrCreate);
+            using var streamReader = new StreamReader(fileStream);
+            string json = streamReader.ReadToEnd();
+            //streamReader.Dispose();
+            //fileStream.Dispose();
+
+            var result = JsonConvert.DeserializeObject<ICollection<T>>(json);
+            return result ?? new List<T>();
         }
 
-        public T? Read(int id)
+        private void SaveData()
         {
-            throw new NotImplementedException();
+            var json = JsonConvert.SerializeObject(_entities);
+
+            using var fileStream = new FileStream(_path, FileMode.Create);
+            byte[] bytes = Encoding.Default.GetBytes(json);
+
+            fileStream.Write(bytes, 0, bytes.Length);
+            //metoda flush wymusza wypchnięcie danych do strumienia
+            fileStream.Flush();
+
         }
 
-        public IEnumerable<T> Read()
+        //override - nadpisujemy implementację funkcji wirtualnej lub abstrakcyjnej
+        public override void Update(int id, T entity)
         {
-            throw new NotImplementedException();
+            //base - owołujemy się do implementacji klasy bazowej
+            base.Update(id, entity);
+
+            SaveData();
         }
 
-        public void Update(int id, T entity)
+        public override int Create(T entity)
         {
-            throw new NotImplementedException();
+            var result =  base.Create(entity);
+            SaveData();
+            return result;
         }
+
+        public override bool Delete(int id)
+        {
+            var result =  base.Delete(id);
+            if(result)
+                SaveData();
+            return result;
+        }
+
     }
 }

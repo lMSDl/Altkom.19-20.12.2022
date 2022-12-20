@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.InMemory", "Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PeopleApp", "PeopleApp\PeopleApp.csproj", "{08365AC0-D7B4-49A4-BA18-497DCD199FA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.InFIle", "Services.InFIle\Services.InFIle.csproj", "{0A22430B-35D5-4DED-AA82-A790D34DD02D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.InFile", "Services.InFIle\Services.InFile.csproj", "{0A22430B-35D5-4DED-AA82-A790D34DD02D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

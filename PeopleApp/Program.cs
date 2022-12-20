@@ -12,14 +12,15 @@ using System.Xml.Serialization;
 
 //Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("de-de");
 
+var path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+path = Path.Combine(path, "people.json");
+var service = new Services.InFile.EntityService<Person>(path);
 
-var service = new PeopleService();
-
-service.Create(new Person() { Name = "Adam Adamski", Age = 34 });
+/*service.Create(new Person() { Name = "Adam Adamski", Age = 34 });
 service.Create(new Person() { Name = "Ewa Ewowska", Age = 34 });
 service.Create(new Person() { Name = "Wiesława Wiesławowska", Age = 34 });
 service.Create(new Person() { Name = "Ewa Adamska", Age = 34 });
-service.Create(new Person() { Name = "Adam Ewowski", Age = 34 });
+service.Create(new Person() { Name = "Adam Ewowski", Age = 34 });*/
 
 bool exit = false;
 
