@@ -2,13 +2,8 @@
 
 namespace Services.Interfaces
 {
-    public interface IPeopleService
+    public interface IPeopleService : IEntityService<Person>
     {
-        //brak kodyfikatora dotępu w interfejsie = public
-        int Create(Person entity);
-        Person? Read(int id);
-        IEnumerable<Person> Read();
-        void Update(int id, Person entity);
-        bool Delete(int id);
+        IEnumerable<Person> FindByName(string input);
     }
 }
