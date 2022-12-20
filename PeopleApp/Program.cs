@@ -3,7 +3,11 @@ using Models;
 using PeopleApp.Properties;
 using Services.InMemory;
 using System.Globalization;
+using System.Text;
 using System.Text.Json;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 //Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("de-de");
 
@@ -59,6 +63,13 @@ do
 void ToXml()
 {
     int id = AskForId();
+    var item = service.Read(id);
+    var serializer = new XmlSerializer(item.GetType());
+    using var memoryStream = new MemoryStream();
+    serializer.Serialize(memoryStream, item);
+    var xml = Encoding.Default.GetString(memoryStream.ToArray());
+    Console.WriteLine(xml);
+    Console.ReadLine();
 }
 
 void ToJson()
