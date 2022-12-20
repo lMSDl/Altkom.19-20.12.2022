@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using Models;
+using Newtonsoft.Json;
 using PeopleApp.Properties;
 using Services.InMemory;
 using System.Globalization;
@@ -64,14 +65,8 @@ void ToXml()
 {
     int id = AskForId();
     var item = service.Read(id);
-    var serializer = new XmlSerializer(item.GetType());
-    string xml;
-    using (var memoryStream = new MemoryStream())
-    {
-        serializer.Serialize(memoryStream, item);
-        xml = Encoding.Default.GetString(memoryStream.ToArray());
-    }
-    Console.WriteLine(xml);
+    /*var serializer = new XmlSerializer(item.GetType());
+    string xml = xDocument.ToString();
     Console.ReadLine();
 
     item = null;
@@ -84,9 +79,12 @@ void ToXml()
         xDocument.Save(memoryStream);
         memoryStream.Position = 0;
          item = (Person?)serializer.Deserialize(memoryStream);
-    }
+    }*/
 
-
+    var json = JsonConvert.SerializeObject(item);
+    var xDocument = JsonConvert.DeserializeXNode(json, nameof(Person));
+    Console.WriteLine(  xDocument.ToString() );
+    Console.ReadLine();
 }
 
 void ToJson()
@@ -94,17 +92,25 @@ void ToJson()
     int id = AskForId();
     var item = service.Read(id);
 
-    JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions();
+    /*JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions();
     jsonSerializerOptions.IgnoreReadOnlyProperties = true;
     jsonSerializerOptions.WriteIndented = true;
 
-    string json = JsonSerializer.Serialize(item, jsonSerializerOptions);
+    string json = JsonSerializer.Serialize(item, jsonSerializerOptions);*/
+
+    var jsonSerializerSettings = new JsonSerializerSettings();
+    jsonSerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+
+    string json = JsonConvert.SerializeObject(item, jsonSerializerSettings);
 
     Console.WriteLine(json);
     Console.ReadLine();
     item = null;
 
-    item = JsonSerializer.Deserialize<Person>(json);
+    /*item = JsonSerializer.Deserialize<Person>(json);*/
+
+    item = JsonConvert.DeserializeObject<Person>(json, jsonSerializerSettings);
+
 }
 
 void Edit()

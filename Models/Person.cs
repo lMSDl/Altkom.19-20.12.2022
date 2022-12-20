@@ -6,7 +6,15 @@
         public string Name { get; set; } = string.Empty;
         public int Age { get; set; }
 
+
         public string Info => ToString();
+
+        //Newtonsoft.Json pozwala na warunkowe serializowanie wskazanej właściwości
+        //ShouldSerialize<nazwa property>
+        public bool ShouldSerializeInfo()
+        {
+            return Name?.Contains("Ewa") ?? false;
+        }
 
 
         //override - nadpisanie metody bazowej
