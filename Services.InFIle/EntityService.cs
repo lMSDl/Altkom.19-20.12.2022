@@ -20,13 +20,16 @@ namespace Services.InFile
 
         private ICollection<T> LoadData()
         {
+            var json = File.ReadAllText(_path);
+
+            /*
             //wykorzustanie using spowoduje automatyczne wywołanie funkcji Dispose
             using var fileStream = new FileStream(_path, FileMode.OpenOrCreate);
             using var streamReader = new StreamReader(fileStream);
             string json = streamReader.ReadToEnd();
             //streamReader.Dispose();
             //fileStream.Dispose();
-
+            */
             var result = JsonConvert.DeserializeObject<ICollection<T>>(json);
             return result ?? new List<T>();
         }
@@ -35,12 +38,16 @@ namespace Services.InFile
         {
             var json = JsonConvert.SerializeObject(_entities);
 
+            File.WriteAllText(_path, json);
+
+            /* 
             using var fileStream = new FileStream(_path, FileMode.Create);
             byte[] bytes = Encoding.Default.GetBytes(json);
 
             fileStream.Write(bytes, 0, bytes.Length);
             //metoda flush wymusza wypchnięcie danych do strumienia
             fileStream.Flush();
+            */
 
         }
 
