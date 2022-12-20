@@ -32,6 +32,20 @@ namespace Services.InFile.Encryption
             return Transform(encryptor, bytesToEncrypt);
         }
 
+        public string DecryptToString(byte[] bytesToDecrypt, string password)
+        {
+            return Encoding.Unicode.GetString(Decrypt(bytesToDecrypt, password));
+        }
+        public byte[] Decrypt(byte[] bytesToDecrypt, string password)
+        {
+            var passwordHash = GenerateHash(password);
+            var key = GenerateKey(passwordHash);
+            var iv = GenerateIV(passwordHash);
+
+            var decryptor = _algorithm.CreateDecryptor(key, iv);
+            return Transform(decryptor, bytesToDecrypt);
+        }
+
         private byte[] Transform(ICryptoTransform encryptor, byte[] bytesToEncrypt)
         {
             using (var memoryStream = new MemoryStream())

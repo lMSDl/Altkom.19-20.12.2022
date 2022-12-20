@@ -21,7 +21,16 @@ namespace Services.InFile
 
         private ICollection<T> LoadData()
         {
-            var json = File.ReadAllText(_path);
+            var bytes = File.Exists(_path) ?  File.ReadAllBytes(_path) : null;
+
+            string json = string.Empty;
+            if(bytes != null)
+            {
+                json = _encryption.DecryptToString(bytes, "ma kota");
+            }
+
+            //var json = File.Exists(_path) ? File.ReadAllText(_path) : "";
+
 
             /*
             //wykorzustanie using spowoduje automatyczne wywołanie funkcji Dispose
