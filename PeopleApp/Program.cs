@@ -1,7 +1,11 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using Models;
+using PeopleApp.Properties;
 using Services.InMemory;
-using System.ComponentModel;
+using System.Globalization;
+
+//Thread.CurrentThread.CurrentCulture = Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("de-de");
+
 
 var service = new PeopleService();
 
@@ -111,22 +115,22 @@ void ShowItems()
 
 static void ShowMenu()
 {
-    Console.WriteLine("1. Dodaj");
-    Console.WriteLine("2. Usuń");
-    Console.WriteLine("3. Edytuj");
-    Console.WriteLine("4. Koniec");
+    Console.WriteLine(Resources.menu_add);
+    Console.WriteLine(Resources.menu_delete);
+    Console.WriteLine(Resources.menu_edit);
+    Console.WriteLine(Resources.menu_close);
 }
 
 static void EditPerson(Person item)
 {
-    Console.WriteLine("Podaj imię i nazwisko:");
+    Console.WriteLine(Resources.provideName);
     item.Name = Console.ReadLine();
 
 
     int age;
     do
     {
-        Console.WriteLine("Podaj wiek:");
+        Console.WriteLine(Resources.provideAge);
     } while (!int.TryParse(Console.ReadLine(), out age));
 
     item.Age = age;
