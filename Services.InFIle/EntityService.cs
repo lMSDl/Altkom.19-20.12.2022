@@ -1,5 +1,6 @@
 ﻿using Models;
 using Newtonsoft.Json;
+using Services.InFile.Encryption;
 using Services.Interfaces;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -34,11 +35,16 @@ namespace Services.InFile
             return result ?? new List<T>();
         }
 
+        private SymmetricEncryption _encryption = new SymmetricEncryption("ala"); 
+
         private void SaveData()
         {
             var json = JsonConvert.SerializeObject(_entities);
+            var bytes = _encryption.Encrypt(json, "ma kota");
 
-            File.WriteAllText(_path, json);
+            File.WriteAllBytes(_path, bytes);
+            
+            //File.WriteAllText(_path, json);
 
             /* 
             using var fileStream = new FileStream(_path, FileMode.Create);
