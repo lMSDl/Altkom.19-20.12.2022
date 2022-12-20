@@ -26,7 +26,7 @@ namespace Services.InFile
             string json = string.Empty;
             if(bytes != null)
             {
-                json = _encryption.DecryptToString(bytes, "ma kota");
+                json = _encryption.DecryptToString(bytes, "CN=localhost");
             }
 
             //var json = File.Exists(_path) ? File.ReadAllText(_path) : "";
@@ -44,12 +44,13 @@ namespace Services.InFile
             return result ?? new List<T>();
         }
 
-        private SymmetricEncryption _encryption = new SymmetricEncryption("ala"); 
+        //private SymmetricEncryption _encryption = new SymmetricEncryption("ala");
+        private AsymmetricEncryption _encryption = new AsymmetricEncryption();
 
         private void SaveData()
         {
             var json = JsonConvert.SerializeObject(_entities);
-            var bytes = _encryption.Encrypt(json, "ma kota");
+            var bytes = _encryption.Encrypt(json, "CN=localhost");
 
             File.WriteAllBytes(_path, bytes);
             
